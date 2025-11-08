@@ -2,7 +2,7 @@
 
 A modern web-based tool to calculate **distance** and **azimuth (bearing)** between two geographic points using their **latitude and longitude** coordinates.  
 Built for surveyors, navigators, geocachers, and anyone working with geographic data.
-
+Its a very useful tool for **Telecom Microwave Engineers** for hop distance and azimuth calculation.
 ---
 
 ## 🚀 Live Demo
