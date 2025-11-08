@@ -1,103 +1,354 @@
 <!DOCTYPE html>
-<html lang="as">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>অসমীয়া ↔ हिन्दी ↔ English Translator</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#2b8a3e">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Assamese&family=Noto+Sans+Devanagari&display=swap');
-    * { box-sizing: border-box; }
-    body { font-family: "Noto Sans Assamese", "Noto Sans Devanagari", Arial, sans-serif; margin: 0; padding: 0; background: linear-gradient(135deg, #a8edea, #fed6e3); display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-    .container { background: rgba(255, 255, 255, 0.97); box-shadow: 0 8px 25px rgba(0,0,0,0.15); border-radius: 20px; padding: 25px; width: 90%; max-width: 440px; display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.8s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);} }
-    h1 { text-align: center; color: #333; margin-bottom: 10px; font-size: 1.5rem; }
-    .lang-select { display: flex; justify-content: space-between; width: 100%; gap: 10px; margin-bottom: 10px; }
-    select { flex: 1; font-size: 1rem; padding: 10px; border-radius: 12px; border: 1px solid #ccc; background: #f7f7f7; text-align: center; }
-    textarea { width: 100%; border-radius: 12px; border: 1px solid #ddd; padding: 10px; font-size: 1rem; margin: 8px 0; resize: none; min-height: 100px; transition: box-shadow 0.3s; }
-    textarea:focus { box-shadow: 0 0 8px rgba(0, 128, 255, 0.4); outline: none; }
-    .btn-group { display: flex; width: 100%; justify-content: space-between; gap: 10px; }
-    button { flex: 1; background: linear-gradient(90deg, #2b8a3e, #46c56b); border: none; color: white; padding: 12px; font-size: 1.05rem; border-radius: 12px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-    button:hover { transform: scale(1.02); box-shadow: 0 4px 12px rgba(43,138,62,0.4); }
-    .icon-btn { width: 48%; background: #f0f0f0; color: #222; border: 1px solid #ccc; }
-    .icon-btn:hover { background: #e2e2e2; transform: scale(1.05); }
-    footer { margin-top: 12px; font-size: 0.85rem; color: #555; text-align: center; }
-  </style>
+<html lang="en">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-28XK4SQEFP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-28XK4SQEFP');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Calculate the distance and azimuth between two geographic points using latitude and longitude coordinates. A simple, accurate, and user-friendly tool for navigation, surveying, and geocaching.">
+    <title>Azimuth and Distance Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+      <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-28XK4SQEFP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-28XK4SQEFP');
+</script>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+        }
+        .calculator {
+            max-width: 90%;
+            width: 600px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            font-size: 5vw;
+        }
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .navbar-nav a {
+            color: white;
+        }
+        .navbar-nav a:hover {
+            color: #ccc;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 6vw;
+            }
+            .calculator {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 8vw;
+            }
+            .calculator {
+                padding: 15px;
+            }
+            .form-control {
+                padding: 8px;
+                font-size: 14px;
+            }
+            label {
+                font-size: 14px;
+            }
+            button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+        .form-control {
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            display: block;
+            box-sizing: border-box;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-control:focus {
+            border-color: #aaa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            outline: none;
+            border: 2px solid #007bff;
+        }
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: blue; /* Set label text color to blue */
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 5px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:active {
+            transform: translateY(2px);
+        }
+        #output {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        .loading {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .modal-content {
+            background-color: #f9f9f9;
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .modal-header {
+            border-bottom: none;
+        }
+        .modal-body {
+            padding: 20px;
+        }
+        .modal-footer {
+            border-top: none;
+            padding: 20px;
+        }
+        .adaptive-text {
+            font-size: 16px;
+            padding: 12px;
+        }
+        @media (max-width: 768px) {
+            .adaptive-text {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            .adaptive-text {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+        .adaptive-textbox {
+            overflow: hidden;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>অসমীয়া ↔ हिन्दी ↔ English Translator</h1>
-    <div class="lang-select">
-      <select id="fromLang">
-        <option value="as">অসমীয়া (Assamese)</option>
-        <option value="hi">हिन्दी (Hindi)</option>
-        <option value="en" selected>English</option>
-      </select>
-      <select id="toLang">
-        <option value="en">English</option>
-        <option value="hi">हिन्दी (Hindi)</option>
-        <option value="as">অসমীয়া (Assamese)</option>
-      </select>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-10 calculator">
+                <h1 class="text-center">Azimuth and Distance Calculator</h1>
+                <form>
+                    <label for="point1">Enter Latitude and Longitude of Point 1 (e.g. 40.7128, -74.0060 or 40.7128 -74.0060)</label>
+                    <textarea id="point1" class="form-control adaptive-textbox" style="height: 40px;"></textarea>
+                    <label for="point2">Enter Latitude and Longitude of Point 2 (e.g. 34.0522, -118.2437 or 34.0522 -118.2437)</label>
+                    <textarea id="point2" class="form-control adaptive-textbox" style="height: 40px;"></textarea>
+                    <button id="calculateButton" class="btn btn-primary w-100">Calculate Azimuth and Distance
+                        <div class="loading" id="loading"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
-    <textarea id="inputText" placeholder="Enter or speak text..."></textarea>
-    <div class="btn-group">
-      <button onclick="startListening()">🎙️ Speak</button>
-      <button onclick="translateText()">🔄 Translate</button>
+    <div class="modal fade" id="resultsModal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultsModalLabel">Results</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalOutput"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <textarea id="output" placeholder="Translation will appear here..." readonly></textarea>
-    <div class="btn-group">
-      <button class="icon-btn" onclick="speakOutput()">🔊 Speak Output</button>
-      <button class="icon-btn" onclick="copyText()">📋 Copy</button>
-    </div>
-    <footer>Made with 💕 by Jajabor AI</footer>
-  </div>
-  <script>
-    async function translateText() {
-      const text = document.getElementById("inputText").value.trim();
-      const from = document.getElementById("fromLang").value;
-      const to = document.getElementById("toLang").value;
-      const output = document.getElementById("output");
-      if (!text) { output.value = "Please enter or speak some text!"; return; }
-      output.value = "Translating...";
-      try {
-        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`);
-        const data = await res.json();
-        output.value = data[0].map(item => item[0]).join("");
-      } catch (err) { output.value = "Translation failed. Try again!"; }
-    }
-    function startListening() {
-      if (!('webkitSpeechRecognition' in window)) { alert("Speech recognition not supported."); return; }
-      const recognition = new webkitSpeechRecognition();
-      recognition.lang = document.getElementById("fromLang").value;
-      recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
-      recognition.start();
-      recognition.onresult = (event) => {
-        document.getElementById("inputText").value = event.results[0][0].transcript;
-      };
-      recognition.onerror = () => alert("Voice input failed.");
-    }
-    function speakOutput() {
-      const msg = new SpeechSynthesisUtterance();
-      const text = document.getElementById("output").value;
-      const lang = document.getElementById("toLang").value;
-      if (!text) { alert("No text to speak!"); return; }
-      msg.text = text;
-      msg.lang = lang;
-      speechSynthesis.speak(msg);
-    }
-    function copyText() {
-      const output = document.getElementById("output");
-      if (!output.value) return;
-      navigator.clipboard.writeText(output.value);
-      alert("Copied to clipboard!");
-    }
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('✅ Service Worker Registered'))
-        .catch(err => console.log('❌ SW registration failed:', err));
-    }
-  </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script>
+        const point1Input = document.getElementById('point1');
+        const point2Input = document.getElementById('point2');
+        const calculateButton = document.getElementById('calculateButton');
+        const outputDiv = document.getElementById('output');
+        const modalOutputDiv = document.getElementById('modalOutput');
+        const loadingDiv = document.getElementById('loading');
+        point1Input.addEventListener('input', function() {
+            adjustTextareaHeight(point1Input);
+        });
+        point2Input.addEventListener('input', function() {
+            adjustTextareaHeight(point2Input);
+        });
+        function adjustTextareaHeight(textarea) {
+            textarea.style.height = '40px';
+            textarea.style.height = textarea.scrollHeight + 'px';
+        }
+        calculateButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            const point1 = point1Input.value.replace(/ /g, ',').split(',');
+            const point2 = point2Input.value.replace(/ /g, ',').split(',');
+            if (point1.length !== 2 || point2.length !== 2) {
+                const errorText = document.createElement('p');
+                errorText.style.color = 'red';
+                errorText.textContent = 'Please enter valid latitude and longitude values separated by a comma or space.';
+                modalOutputDiv.innerHTML = '';
+                modalOutputDiv.appendChild(errorText);
+                const modal = new bootstrap.Modal(document.getElementById('resultsModal'));
+                modal.show();
+                return;
+            }
+            const lat1 = parseFloat(point1[0].trim());
+            const lon1 = parseFloat(point1[1].trim());
+            const lat2 = parseFloat(point2[0].trim());
+            const lon2 = parseFloat(point2[1].trim());
+            if (isNaN(lat1) || isNaN(lon1) || isNaN(lat2) || isNaN(lon2)) {
+                const errorText = document.createElement('p');
+                errorText.style.color = 'red';
+                errorText.textContent = 'Please enter valid latitude and longitude values.';
+                modalOutputDiv.innerHTML = '';
+                modalOutputDiv.appendChild(errorText);
+                const modal = new bootstrap.Modal(document.getElementById('resultsModal'));
+                modal.show();
+                return;
+            }
+            if (lat1 < -90 || lat1 > 90 || lat2 < -90 || lat2 > 90) {
+                const errorText = document.createElement('p');
+                errorText.style.color = 'red';
+                errorText.textContent = 'Latitude must be between -90° and 90°.';
+                modalOutputDiv.innerHTML = '';
+                modalOutputDiv.appendChild(errorText);
+                const modal = new bootstrap.Modal(document.getElementById('resultsModal'));
+                modal.show();
+                return;
+            }
+            if (lon1 < -180 || lon1 > 180 || lon2 < -180 || lon2 > 180) {
+                const errorText = document.createElement('p');
+                errorText.style.color = 'red';
+                errorText.textContent = 'Longitude must be between -180° and 180°.';
+                modalOutputDiv.innerHTML = '';
+                modalOutputDiv.appendChild(errorText);
+                const modal = new bootstrap.Modal(document.getElementById('resultsModal'));
+                modal.show();
+                return;
+            }
+            loadingDiv.style.display = 'inline-block';
+            calculateButton.style.padding = '9px 19px';
+            setTimeout(function() {
+                const distance = calculateDistance(lat1, lon1, lat2, lon2);
+                const azimuth12 = calculateAzimuth(lat1, lon1, lat2, lon2);
+                const azimuth21 = calculateAzimuth(lat2, lon2, lat1, lon1);
+                modalOutputDiv.innerHTML = `
+                    <h5>Results</h5>
+                    <hr>
+                    <p>Distance between two points: <strong>${distance.toFixed(2)} km</strong></p>
+                    <p>Azimuth from point 1 to point 2: <strong>${azimuth12.toFixed(2)}°</strong></p>
+                    <p>Azimuth from point 2 to point 1: <strong>${azimuth21.toFixed(2)}°</strong></p>
+                `;
+                loadingDiv.style.display = 'none';
+                calculateButton.style.padding = '10px 20px';
+                const modal = new bootstrap.Modal(document.getElementById('resultsModal'));
+                modal.show();
+            }, 1000);
+        });
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // km
+            const dLat = deg2rad(lat2 - lat1);
+            const dLon = deg2rad(lon2 - lon1);
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            const distance = R * c;
+            return distance;
+        }
+
+        function calculateAzimuth(lat1, lon1, lat2, lon2) {
+            const dLon = deg2rad(lon2 - lon1);
+            const y = Math.sin(dLon) * Math.cos(deg2rad(lat2));
+            const x = Math.cos(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) - Math.sin(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(dLon);
+            const azimuth = Math.atan2(y, x);
+            const azimuthDeg = rad2deg(azimuth);
+            if (azimuthDeg < 0) {
+                return 360 + azimuthDeg;
+            } else {
+                return azimuthDeg;
+            }
+        }
+
+        function deg2rad(deg) {
+            return deg * Math.PI / 180;
+        }
+
+        function rad2deg(rad) {
+            return rad * 180 / Math.PI;
+        }
+    </script>
 </body>
 </html>
