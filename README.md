@@ -6,7 +6,7 @@ Its a very useful tool for **Telecom Microwave Engineers** for hop distance and 
 ---
 
 ## 🚀 Live Demo
-🔗 [View Project on GitHub Pages](https://sazid010188.github.io/Azimuth-Calculator-Microwave-Link-/)
+🔗 [View Project on GitHub Pages] (https://sazid010188.github.io/Azimuth-Calculator-Microwave-Link-/)
 
 ---
 
@@ -21,8 +21,7 @@ Its a very useful tool for **Telecom Microwave Engineers** for hop distance and 
 ---
 
 ## 📸 Preview
-![App Screenshot](https://freeimage.host/i/KbuyYAB)
-*(You can upload your own screenshot and replace the image link.)*
+![App Screenshot]https://freeimage.host/i/KbuyYAB
 
 ---
 
