@@ -21,7 +21,7 @@ Its a very useful tool for **Telecom Microwave Engineers** for hop distance and 
 ---
 
 ## 📸 Preview
-![App Screenshot](https://user-images.githubusercontent.com/00000000/placeholder.png)
+![App Screenshot](https://freeimage.host/i/KbuyYAB)
 *(You can upload your own screenshot and replace the image link.)*
 
 ---
